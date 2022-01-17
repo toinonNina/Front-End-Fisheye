@@ -9,7 +9,7 @@ function photographerFactory(data) {
         const url = `${wayUrl}?photographer=${id}`;
         article.innerHTML = `
         <a href=${url}>
-        <div class="test"><img src=${picture} class="profilpicture" alt="${description}"></div>
+        <img src=${picture} class="profilpicture" alt="${description}">
         <h2 class="photographerprofil">${name}
         </h2>
         </a>
