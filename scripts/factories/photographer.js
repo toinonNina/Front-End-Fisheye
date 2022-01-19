@@ -10,15 +10,17 @@ function photographerFactory(data) {
         article.innerHTML = `
         <a href=${url}>
         <img src=${picture} class="profilpicture" alt="${description}">
-        <h2 class="photographerprofil">${name}
+        <h2 class="photographerprofil" aria-label="${name}">${name}
         </h2>
         </a>
         <div class="photographerinfo">
-        <p class="city">${city}, ${country}</p>
-        <p class ="tagline">${tagline}</p>
-        <p class="price">${price}€/jour</p>
+        <h3 class="city" tabindex="0">${city}, ${country}</h3>
+        <p class ="tagline" tabindex="0">${tagline}</p>
+        <p class="price" tabindex="0">${price}€/jour</p>
         </div>`;
         return (article);
     }
+
+
     return { name, picture, getUserCardDOM };
 }

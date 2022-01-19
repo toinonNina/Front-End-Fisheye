@@ -2,14 +2,23 @@
     display: none;
 }
 
+.logo-photographe {
+    height: 50px;
+    margin-left: 35%;
+}
+
 .photograph-header {
     background-color: #FAFAFA;
     height: 300px;
-    margin: 0 100px;
+    margin: 0 5% 2em 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
 }
 
 .contact_button {
-    font-size: 20px;
+    font-size: 0.83em;
     font-weight: bold;
     color: white;
     padding: 11px;
@@ -19,6 +28,38 @@
     background-color: #901C1C;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.photograph-header h1 {
+    color: #D3573C;
+    font-size: 4em;
+    font-weight: 400;
+    margin: 0;
+}
+
+.profilpicture {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 0;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.cityContact {
+    font-size: 1em;
+    color: #901C1C;
+    font-weight: 600;
+}
+
+.taglineContact {
+    font-size: 0.75em;
+    font-weight: 500;
+}
+
+.photograph-description {
+    display: flex;
+    flex-direction: column;
 }
 
 .modal {
