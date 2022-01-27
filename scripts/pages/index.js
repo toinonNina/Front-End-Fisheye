@@ -9,7 +9,7 @@ async function getPhotographers() {
             console.log(error);
         }
 
-        console.log(data.photographers);
+        // console.log(data.photographers);
     });
     // et bien retourner le tableau photographers seulement une fois
     return ({
