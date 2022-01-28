@@ -18,7 +18,7 @@ async function getDataPhotographer(photographerId) {
     const portfolio = data.media
         //Filtrage des media en fonction de l'id du photographe
         .filter((media) => media.photographerId === photographerId);
-    // console.log(portfolio);
+    console.log(portfolio);
 
     //function accumulateur des likes des medias
     const totalLikes = portfolio.reduce((accumulateur, current) => {
@@ -60,21 +60,22 @@ async function displaytotalLikes(photographer, totalLikes) {
 }
 
 async function displayMedia(portfoliomedia, photographer) {
-    console.log(portfoliomedia);
+
     const sectionPortfolio = document.querySelector(".portfolio-section");
-
-    portfoliomedia.forEach((elementportofolio) => {
-        const templatemedia = factoryMedia(elementportofolio, photographer);
+    portfoliomedia.forEach((elementportfolio) => {
+        const templatemedia = factoryMedia(elementportfolio, photographer);
         const mediaelement = templatemedia.getmediaelement();
-
         sectionPortfolio.appendChild(mediaelement);
 
     });
+
+
 }
 
 
 
 async function init() {
+
     // récuperer l'id du photographe dans l'url et passer ce paramètre pour récuperer les données de ce photographe et ses media
     const urlParams = new URLSearchParams(window.location.search);
     //on analyse avec parseInt la chaine de caratère de l'url pour être sur de récuperer un nombre 
@@ -84,6 +85,8 @@ async function init() {
     // console.log(photographer);
     displayPhotographerContact(photographer);
     displayMedia(portfolio, photographer);
+    likeincremente();
+
 
 
 }

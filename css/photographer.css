@@ -68,6 +68,18 @@
     object-fit: cover;
 }
 
+.media-card-text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.likesMedia {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
 .portfolio-section {
     display: flex;
     justify-content: space-around;

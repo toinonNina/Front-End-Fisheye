@@ -1,8 +1,8 @@
 //établir le chemin des médias 
 
-function factoryMedia(elementportofolio, photographer) {
+function factoryMedia(elementportfolio, photographer) {
 
-    const { id, title, image, video, likes, date, name, type } = elementportofolio;
+    const { id, title, image, video, likes, date, name, type } = elementportfolio;
 
     let imglink = `assets/photo/${photographer.name}/${image}`;
     let linkvideo = `assets/video/${video}`;
@@ -12,26 +12,25 @@ function factoryMedia(elementportofolio, photographer) {
         article.setAttribute('tabindex', '0');
 
         //comparé si le type est image ou video
-        if (elementportofolio.hasOwnProperty('image')) {
+        if (elementportfolio.hasOwnProperty('image')) {
             article.innerHTML = `<img class="media-card-img" src="${imglink}" alt="${title}">
       <div class="media-card-text">
            <span class="media-card-title">${title}</span>
-           <div class="likesByMedia">
-           <i class="fas fa-heart heart"></i>
-            
-            <span class="media-card-likes" value="${likes}">${likes}</span>
+           <div class="likesMedia">
+            <img id="${title}" src="./assets/icons/heart-regular.svg" class="infos-Likes-Icon infos-Likes-Icon1 heart" alt="icon like"/>
+             <p id="likes-${title}" class="media-card-likes .numberLikes" value="${likes}">${likes}</p>
            </div>
          </div>`;
-        } else if (elementportofolio.hasOwnProperty('video')) {
+        } else if (elementportfolio.hasOwnProperty('video')) {
             article.innerHTML = `<video  preload="metadata" class="media-card-img"  >
                 <source src="${linkvideo}" type="video/mp4">
               </video>
              <div class="media-card-text">
           <span class="media-card-title">${title}</span>
-          <div class="likesByMedia">
+          <div class="likesMedia">
            <img src="./assets/icons/heart-regular.svg" class="infos-Likes-Icon infos-Likes-Icon1 heart" alt="icon like"/>
-           <span class="media-card-likes" value="${likes}">${likes}</span>
-          </div>
+          <p class="media-card-likes numberLikes" value="${likes}">${likes}</p>
+          </div> 
         </div>
          `;
 
@@ -40,7 +39,6 @@ function factoryMedia(elementportofolio, photographer) {
         return article;
 
     }
-    console.log(likes);
 
     return { id, likes, date, title, getmediaelement };
 
