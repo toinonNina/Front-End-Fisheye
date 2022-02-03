@@ -16,9 +16,17 @@ async function getDataPhotographer(photographerId) {
     // console.log(photographer);
     // je récupère les media du photographe
     const portfolio = data.media
-        //Filtrage des media en fonction de l'id du photographe
-        .filter((media) => media.photographerId === photographerId);
-    console.log(portfolio);
+        //Filtrage des media en fonction de l'id du photographe et du nombre de like pour la popularité
+        .filter((media) => media.photographerId === photographerId)
+        .sort((a, b) => {
+            if (a.likes > b.likes) {
+                return -1;
+            } else if (a.likes < b.likes) {
+                return 1;
+            } else {
+                return 0;
+            };
+        });
 
     //function accumulateur des likes des medias
     const totalLikes = portfolio.reduce((accumulateur, current) => {
@@ -50,29 +58,148 @@ async function displayPhotographerContact(photographer) {
 
 }
 
+function myDropDown() {
+    let dropDown = document.getElementById("myDropdown").classList.toggle("show");
+    window.onclick = (event) => {
+        if (!event.target.matches(".dropbtn")) {
+            let dropDowns = document.getElementsByClassName("dropdown-content");
+            let i;
+            for (i = 0; i < dropDowns.length; i++) {
+                let openDrop = dropDowns[i];
+                if (openDrop.classList.contains("show")) {
+                    openDrop.classList.remove("show");
+                }
+            }
+        }
+    };
+}
+
+function displayNavList(portfoliomedia, photographerId) {
+
+    const navDrop = document.querySelector(".navdropbox");
+    navDrop.innerHTML = ` <div class="containerListBox">
+      <div class="sortList">
+        <p class="trierTitle">Trier par</p>
+      </div>
+      <div class="dropdown">
+        <button onclick="myDropDown()" class="dropbtn popularity" aria label="Popularité"><a href="" class="filterBypop" aria-labelled="Trier par popularité" id="populaire">Populaire</a></button>
+
+      <div id="myDropdown" class="dropdown-content">
+        <a href="" class="filterByDates" aria-labelledby="Trier par dates" id="date">Date</a>
+        <a href="" class="filterByTitle" aria-labelled="Trier par titre" id="title">Titre</a>
+
+      </div> 
+      </div>
+      </div> `;
+
+}
+
 
 async function displaytotalLikes(photographer, totalLikes) {
     const { price } = photographer;
-    const infolikejour = document.querySelector(".totallikejour");
-    infolikejour.innerHTML = `<div class="gestionLikes"> <p class="valueTotalLike">${totalLikes}
-    </p><img src="./assets/icons/heart-regular.svg" class="infos-Likes-Icon1" alt="icon like"/>  
+    const infoLikeDay = document.querySelector(".totallikejour");
+    infoLikeDay.innerHTML = `<div class="gestionLikes"> <p class="valueTotalLike">${totalLikes}
+    </p><img src="./assets/icons/heart-solid.svg" class="infos-Likes-Icon1" alt="icon like"/>  
      <p class="price" tabindex="0">${price}€/jour</p> </div>`;
 }
 
-async function displayMedia(portfoliomedia, photographer) {
-
+async function displayMedia(portfolioMedia, photographer) {
     const sectionPortfolio = document.querySelector(".portfolio-section");
-    portfoliomedia.forEach((elementportfolio) => {
-        const templatemedia = factoryMedia(elementportfolio, photographer);
-        const mediaelement = templatemedia.getmediaelement();
-        sectionPortfolio.appendChild(mediaelement);
+    sectionPortfolio.innerHTML = '';
+    portfolioMedia.forEach((elementPortfolio) => {
+        const templateMedia = factoryMedia(elementPortfolio, photographer);
+        const mediaElement = templateMedia.getmediaelement();
+        sectionPortfolio.appendChild(mediaElement);
+
+    });
+    likeIncremente();
+
+}
+/**
+ * mise a jour des media selon les filtres
+ */
+async function udapteMediaFilter(portfolioMedia, photographer) {
+    const sectionPortfolio = document.querySelector(".portfolio-section");
+
+    const filterByTitleMedia = document.querySelector(".filterByTitle");
+    const filterByDateMedia = document.querySelector(".filterByDates");
+    const filterBypop = document.querySelector(".filterBypop");
+    let items = portfolioMedia;
+    sectionPortfolio.innerHTML = '';
+    filterByTitleMedia.addEventListener("click", (event) => {
+        items.sort((a, b) => {
+            if (a.title < b.title) {
+                return -1;
+            } else if (a.title > b.title) {
+                return 1;
+            } else {
+                return 0;
+            };
+        });
+        event.preventDefault();
+        displayMedia(items, photographer);
 
     });
 
+    filterByDateMedia.addEventListener("click", (event) => {
+        items.sort((a, b) => {
+            if (a.date < b.date) {
+                return 1;
+            } else if (a.date > b.date) {
+                return -1;
+            } else {
+                return 0;
+            };
+        });
+        event.preventDefault();
+        displayMedia(items, photographer);
+    });
 
+    filterBypop.addEventListener("click", (event) => {
+        items.sort((a, b) => {
+            if (a.likes > b.likes) {
+                return -1;
+            } else if (a.likes < b.likes) {
+                return 1;
+            } else {
+                return 0;
+            };
+        });
+        event.preventDefault();
+        displayMedia(items, photographer);
+    });
+
+};
+
+
+/**
+ * function d'incrémentation des likes de chaque media avec mise a jour du total des likes 
+ */
+function likeIncremente() {
+
+    let heart = document.querySelectorAll(".infos-Likes-Icon");
+    const totalLikes = document.querySelector(".valueTotalLike");
+    // console.log(heart);
+    for (let i = 0; i < heart.length; i++) {
+        heart[i].addEventListener("click", function(event) {
+            event.preventDefault;
+            // console.log("ok");
+            let buttonClicked = event.target;
+            let likeSpan = buttonClicked.parentElement.children[0];
+            // console.log(likespan);
+            let values = parseInt(likeSpan.textContent);
+            // console.log(valeur);
+            let newvalue = values + 1;
+            // console.log(newvalue);
+            likeSpan.textContent = `${newvalue}`;
+            currentTotalLike = parseInt(totalLikes.textContent);
+            // console.log(currenttotalLike);
+            let newtotalLike = currentTotalLike + 1;
+            totalLikes.textContent = `${newtotalLike}`;
+
+        });
+    }
 }
-
-
 
 async function init() {
 
@@ -84,11 +211,9 @@ async function init() {
     displaytotalLikes(photographer, totalLikes);
     // console.log(photographer);
     displayPhotographerContact(photographer);
+    displayNavList(portfolio, photographerId);
+    udapteMediaFilter(portfolio, photographer);
     displayMedia(portfolio, photographer);
-    likeincremente();
-
-
-
 }
 
 init();
