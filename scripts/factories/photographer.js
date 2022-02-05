@@ -9,11 +9,11 @@ function photographerFactory(data) {
         const url = `${wayUrl}?photographer=${id}`;
         article.innerHTML = `
         <a href=${url}>
-        <img src=${picture} class="profilpicture" alt="photo de ${name}">
-        <h2 class="photographerprofil" aria-label="${name}">${name}
+        <img src=${picture} class="profil-picture" alt="photo de ${name}">
+        <h2 class="photographer-profil" aria-label="${name}">${name}
         </h2>
         </a>
-        <div class="photographerinfo">
+        <div class="photographer-info">
         <h3 class="city" tabindex="0">${city}, ${country}</h3>
         <p class ="tagline" tabindex="0">${tagline}</p>
         <p class="price" tabindex="0">${price}€/jour</p>

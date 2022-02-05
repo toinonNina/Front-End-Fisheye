@@ -21,10 +21,10 @@ function factoryMedia(elementportfolio, photographer) {
         if (elementportfolio.hasOwnProperty('image')) {
             article.innerHTML = `<img class="media-card-img" src="${imglink}" alt="${title}">
       <div class="media-card-text">
-           <span class="media-card-title">${title}</span>
-           <div class="likesMedia">
-           <p id="likes-${title}" class="media-card-likes .numberLikes" value="${likes}">${likes}</p>
-            <img id="${title}" src="./assets/icons/heart-regular.svg" class="infos-Likes-Icon  heart" alt="icon like photo"/>
+           <span class="media-card-title" tabindex="0">${title}</span>
+           <div class="likes-media">
+           <p id="likes-${title}" class="media-card-likes numberLikes" value="${likes}">${likes}</p>
+            <img id="${title}" src="./assets/icons/heart-regular.svg" class="infos-Likes-Icon heart" tabindex="0" alt="icon like photo"/>
            </div>
          </div>`;
         } else if (elementportfolio.hasOwnProperty('video')) {
@@ -32,10 +32,10 @@ function factoryMedia(elementportfolio, photographer) {
                 <source src="${linkvideo}" type="video/mp4">
               </video>
              <div class="media-card-text">
-          <span class="media-card-title">${title}</span>
-          <div class="likesMedia">
+          <span class="media-card-title" tabindex="0">${title}</span>
+          <div class="likes-media">
            <p class="media-card-likes numberLikes" value="${likes}">${likes}</p>
-           <img src="./assets/icons/heart-regular.svg" class="infos-Likes-Icon  heart" alt="icon like video"/>
+           <img src="./assets/icons/heart-regular.svg" class="infos-Likes-Icon heart" tabindex="0" alt="icon like video"/>
           </div> 
         </div>
          `;
@@ -46,6 +46,6 @@ function factoryMedia(elementportfolio, photographer) {
 
     }
 
-    return { id, likes, date, title, getmediaelement };
+    return { id, likes, date, title, name, getmediaelement };
 
 }
