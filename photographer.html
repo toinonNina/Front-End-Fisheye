@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <link href="css/style.css" rel="stylesheet" type="text/css" />
+
     <title>Fisheye - photographe </title>
 </head>
 
@@ -28,8 +29,16 @@
 
         </section>
 
-        <div class="slider-media-container"></div>
+
     </main>
+    <section class="slider-media-container" tabindex="0" aria-label="image closeup view">
+
+        <div class="lightbox-container" tabindex="0"></div>
+        <button class="lightbox-close" tabindex="0"><img src="assets/icons/close.svg" alt="logo Fisheye site photographe" /></button>
+        <button class="lightbox-next" tabindex="0"><img src="assets/icons/chevron-right-solid.svg" alt="image suivante" /></button>
+        <button class="lightbox-prev" tabindex="0"><img src="assets/icons/chevron-right-solid.svg" alt="image précédente" /></button>
+
+    </section>
     <div id="contact_modal">
         <div class="modal">
             <header>
@@ -49,8 +58,11 @@
     <div class="total-like-jour">
     </div>
     <script defer src="scripts/pages/photographer.js"></script>
+
     <script defer src="scripts/factories/photographer.js"></script>
+
     <script defer src="scripts/factories/media.js"></script>
+    <script defer src="scripts/utils/lightbox.js"></script>
     <script defer src="scripts/utils/contactForm.js"></script>
 </body>
 

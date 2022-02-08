@@ -73,11 +73,11 @@ function displayNavList() {
                 <div id="type-wrapper">
                     <div class="type-btn">
                         <button class="btn-click" aria-haspopup="listbox" >Popularité</button>
-                        <img class="arrow-down-close" src="../assets/icons/chevron-down-solid.svg" role='button' aria-expanded alt="Arrow Icon" />
+                        <img class="arrow-down-close" src="./assets/icons/chevron-down-solid.svg" role='button' aria-expanded alt="Arrow Icon" />
                     </div>
                     <ul class="hidden-type" aria-activedescendant="listbox-populaire" tabindex="1"   role="listbox">
                         <li id="filtre-pop" class="type border-li" aria-label="popularité" tabindex="0" aria-selected="true" role='option'>Popularité
-                            <img class="arrow-up-close" src="../assets/icons/chevron-up-solid.svg" tabindex="0" alt="Arrow Icon" aria-hidden="true" />
+                            <img class="arrow-up-close" src="./assets/icons/chevron-up-solid.svg" tabindex="0" alt="Arrow Icon" aria-hidden="true" />
                         </li>
                         <li id="filtre-date" class="type border-li" tabindex="0" aria-selected="false" role='option'>Date</li>
                         <li id="filtre-titre" class="type" tabindex="0" aria-selected="false" role='option'>Titre</li>
@@ -191,6 +191,9 @@ async function displayMedia(portfolioMedia, photographer) {
         sectionPortfolio.appendChild(mediaElement);
     });
     likeIncremente();
+    displayLightbox();
+    // Lightbox.init();
+
 }
 
 
@@ -203,7 +206,7 @@ function likeIncremente() {
     const totalLikes = document.querySelector(".value-Total-Like");
     // console.log(heart);
     for (let i = 0; i < heart.length; i++) {
-        heart[i].addEventListener("click", function(event) {
+        heart[i].addEventListener("click", (event) => {
             event.preventDefault;
             // console.log("ok");
             let buttonClicked = event.target;
@@ -223,7 +226,7 @@ function likeIncremente() {
     }
 
     for (let i = 0; i < heart.length; i++) {
-        heart[i].addEventListener("keydown", function(event) {
+        heart[i].addEventListener("keydown", (event) => {
             event.preventDefault;
             // console.log("ok");
             if (event.key === 'Enter') {
@@ -244,6 +247,11 @@ function likeIncremente() {
         });
     }
 }
+
+
+
+
+
 
 async function init() {
 
