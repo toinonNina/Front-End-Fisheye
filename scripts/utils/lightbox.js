@@ -10,6 +10,7 @@ function displayLightbox(portfolioMedia, photographer) {
     const close = document.querySelector(".lightbox-close");
     const container = document.querySelector(".lightbox-container");
     const prev = document.querySelector('.lightbox-prev');
+    console.log(prev);
     const next = document.querySelector('.lightbox-next');
     let domMediaId = 0;
     let indexVue = -1;
@@ -49,11 +50,13 @@ function displayLightbox(portfolioMedia, photographer) {
     // close lightbox fonction
     close.addEventListener("click", closeLightBox);
 
+
     function closeLightBox() {
         lightbox.style.display = "none";
         document.querySelector(".lightbox-container").innerHTML = ``;
         window.location.reload;
-
+        const portfoliosection = document.querySelector('.portfolio-section');
+        portfoliosection.focus();
     }
 
     function nav() {
@@ -65,6 +68,16 @@ function displayLightbox(portfolioMedia, photographer) {
             e.preventDefault();
             prevArrow();
         });
+        window.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowRight") {
+                nextArrow();
+            } else if (e.key === "ArrowLeft") {
+                prevArrow();
+            } else if (e.key === "Escape") {
+                closeLightBox();
+            }
+        });
+
     }
 
     function nextArrow() {

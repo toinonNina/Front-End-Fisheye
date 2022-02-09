@@ -17,7 +17,7 @@
 
 <body>
     <header>
-        <a href="index.html" tabindex="0"><img src="assets/images/logo.png" class="logo-photographe" alt="logo Fisheye site photographe" /></a>
+        <a href="index.html" tabindex="3    "><img src="assets/images/logo.png" class="logo-photographe" alt="logo Fisheye site photographe" /></a>
     </header>
     <main id="main">
         <section class="photograph-header">
@@ -25,7 +25,7 @@
         </section>
         <nav class="nav-dropbox" role="navigation">
         </nav>
-        <section class="portfolio-section">
+        <section class="portfolio-section" tabindex="0">
 
         </section>
 
@@ -42,29 +42,45 @@
     <div id="contact-modal">
         <div class="modal">
             <header>
-                <h2>Contactez-moi</h2>
-                <img src="assets/icons/close.svg" tabindex="0" id="close-form" onclick="closeModal()" alt="fermer le formulaire" />
+                <h2 class="name-photographer">Contactez-moi</h2>
+                <img src="assets/icons/close.svg" tabindex="1" id="close-form" alt="fermer le formulaire" />
             </header>
 
-            <form>
+            <form id="form-container" tabindex="1" name="user" method="get">
                 <div>
-                    <label>Prénom</label>
-                    <input />
+                    <label for="first-name" aria-label="first-name">Prénom</label>
+                    <input tabindex="1" type="text" id="first-name" required />
+                    <div id="alert-firts-name" class="alertspan"></div>
                 </div>
                 <div>
-                    <label>Nom</label>
-                    <input />
+                    <label for="last-name" aria-label="last-name">Nom</label>
+                    <input tabindex="1" type="text" id="last-name" required />
+                    <div id="alert-last-name" class="alertspan"></div>
                 </div>
                 <div>
-                    <label>Email</label>
-                    <input />
+                    <label for="email" aria-label="email">Email</label>
+                    <input tabindex="1" type="text-control" id="email" />
+                    <div id="alert-email" class="alertspan"></div>
                 </div>
                 <div>
-                    <label>Votre message</label>
-                    <textarea></textarea>
+                    <label for="message-content" aria-label="message-content">Votre message</label>
+                    <input tabindex="1" type="text" id="message-content" required />
+                    <div id="alert-message" class="alertspan"></div>
                 </div>
-                <button class="contact_button">Envoyer</button>
+                <button class="contact_button" id="submitform" tabindex="1">Envoyer</button>
+                <div id="alert-Validation" class="alertspan"></div>
             </form>
+        </div>
+    </div>
+
+    <div class=" modal-confirm">
+        <div id="modal-body-validation" class="modal">
+            <span class="close closed "></span>
+            <div class="content-valid">
+                <p id="message-valid">Votre message a bien été envoyé</p>
+                <br>
+                <button tabindex="1" class="contact_button" id="close-valid-message" type="button">Fermer</button>
+            </div>
         </div>
     </div>
     <div class="total-like-jour">

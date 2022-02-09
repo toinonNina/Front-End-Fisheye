@@ -60,6 +60,7 @@ async function displayPhotographerContact(photographer) {
     <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
      <img src=${picture} class="profil-picture" alt="${description}">
     `;
+    getPhotographerForm(photographer);
 
 }
 
@@ -193,7 +194,7 @@ function updateMedia(portfolioMedia, photographer) {
 function displaytotalLikes(photographer, totalLikes) {
     const { price } = photographer;
     const infoLikeDay = document.querySelector(".total-like-jour");
-    infoLikeDay.innerHTML = `<div class="gestion-likes" tabindex="9"> <p class="value-Total-Like">${totalLikes}
+    infoLikeDay.innerHTML = `<div class="gestion-likes"> <p class="value-Total-Like">${totalLikes}
     </p><img src="./assets/icons/heart-solid.svg" class="infos-Likes-Icon1" alt="icon like"/>  
      <p class="price" tabindex="0">${price}€/jour</p> </div>`;
 }

@@ -356,9 +356,9 @@ video {
 }
 
 #contact-modal {
-    display: block;
+    display: none;
     position: fixed;
-    top: 0px;
+    top: 0;
     left: 0;
     bottom: 0;
     right: 0;
@@ -369,18 +369,20 @@ video {
 .modal {
     border-radius: 5px;
     background-color: #DB8876;
-    width: 50%;
+    width: 40%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-between;
-    padding: 35px;
-    margin: 50px auto auto auto;
+    padding: 30px;
+    margin: 20px auto;
+    position: relative;
 }
 
 .modal header {
-    justify-content: space-between;
     width: 100%;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
 }
 
 .modal header img {
@@ -388,9 +390,8 @@ video {
 }
 
 .modal header h2 {
-    font-size: 64px;
+    font-size: 3em;
     font-weight: normal;
-    text-align: center;
 }
 
 form {
@@ -398,6 +399,7 @@ form {
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
+    padding: 30px 0 0 0;
 }
 
 form label {
@@ -410,7 +412,6 @@ form div {
     flex-direction: column;
     width: 100%;
     align-items: self-start;
-    margin-bottom: 26px;
 }
 
 form input {
@@ -420,7 +421,36 @@ form input {
     border-radius: 5px;
 }
 
-form textarea {
-    width: 560px;
+form #message-content {
+    width: 100%;
     height: 137px;
+}
+
+.alertspan {
+    font-size: 14px;
+    color: black;
+    padding: 10px;
+}
+
+.modal-confirm {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    background-color: rgba(250, 250, 250, 0.7);
+}
+
+#modal-body-validation {
+    border-radius: 5px;
+    background-color: #DB8876;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px;
+    margin: 20px auto;
+    position: relative;
 }

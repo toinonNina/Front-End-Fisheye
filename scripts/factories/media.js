@@ -20,7 +20,7 @@ function factoryMedia(elementportfolio, photographer) {
         if (elementportfolio.hasOwnProperty('image')) {
             article.innerHTML = ` <img tabindex="0" class="media-card-img" media-id="${id}" src="${imglink}" alt="${title}">
       <div class="media-card-text">
-           <span class="media-card-title" tabindex="8">${title}</span>
+           <span class="media-card-title">${title}</span>
            <div class="likes-media">
            <p id="likes-${title}" class="media-card-likes numberLikes" value="${likes}">${likes}</p>
           
@@ -32,7 +32,7 @@ function factoryMedia(elementportfolio, photographer) {
                 <source src="${linkvideo}" type="video/mp4">
               </video>
              <div class="media-card-text">
-          <span class="media-card-title" tabindex="8">${title}</span>
+          <span class="media-card-title" >${title}</span>
           <div class="likes-media">
            <p class="media-card-likes numberLikes" value="${likes}">${likes}</p>
            <img src="./assets/icons/heart-regular.svg" class="infos-Likes-Icon heart" tabindex="0" alt="icon like video"/>
