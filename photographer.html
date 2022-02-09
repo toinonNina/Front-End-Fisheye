@@ -39,17 +39,29 @@
         <button class="lightbox-prev" tabindex="0"><img src="assets/icons/chevron-right-solid.svg" alt="image précédente" /></button>
 
     </section>
-    <div id="contact_modal">
+    <div id="contact-modal">
         <div class="modal">
             <header>
                 <h2>Contactez-moi</h2>
-                <img src="assets/icons/close.svg" tabindex="0" onclick="closeModal()" alt="fermer le formulaire" />
+                <img src="assets/icons/close.svg" tabindex="0" id="close-form" onclick="closeModal()" alt="fermer le formulaire" />
             </header>
 
             <form>
                 <div>
                     <label>Prénom</label>
                     <input />
+                </div>
+                <div>
+                    <label>Nom</label>
+                    <input />
+                </div>
+                <div>
+                    <label>Email</label>
+                    <input />
+                </div>
+                <div>
+                    <label>Votre message</label>
+                    <textarea></textarea>
                 </div>
                 <button class="contact_button">Envoyer</button>
             </form>

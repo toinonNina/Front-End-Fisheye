@@ -1,9 +1,19 @@
-function displayModal() {
-    const modal = document.getElementById("contact_modal");
-	modal.style.display = "block";
-}
+function getPhotographerForm(photographer) {
 
-function closeModal() {
-    const modal = document.getElementById("contact_modal");
-    modal.style.display = "none";
+    const modal = document.getElementById("contact-modal");
+    const modal = document.getElementById("close-form");
+
+
+
+
+
+
+    // }function displayModal() {
+
+    // 	modal.style.display = "block";
+    // }
+
+    // function closeModal() {
+
+    //     modal.style.display = "none";
 }

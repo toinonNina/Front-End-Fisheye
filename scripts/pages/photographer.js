@@ -1,19 +1,21 @@
 //Mettre le code JavaScript lié à la page photographer.html
+/**
+ * 
+ * @param {number} photographerId 
+ * @returns donnée du photographe et des media selon l'id ainsi que le cumul des likes
+ */
 async function getDataPhotographer(photographerId) {
     //récuperer les données json
     let data = "";
     await fetch('data/photographers.json').then(async response => {
         try {
             data = await response.json();
-            //console.log('response datas?', data);
         } catch (error) {
             console.log(error);
         }
-        //console.log(data.photographers);
     });
     // on cherche dans le fichier json les données via l'id du photographer
     const photographer = data.photographers.find((photographe) => photographe.id === photographerId);
-    // console.log(photographer);
     // je récupère les media du photographe
     const portfolio = data.media
         //Filtrage des media en fonction de l'id du photographe et du nombre de like pour la popularité
@@ -32,7 +34,6 @@ async function getDataPhotographer(photographerId) {
     const totalLikes = portfolio.reduce((accumulateur, current) => {
         return accumulateur + current.likes;
     }, 0);
-    // console.log(totalLikes);
     return {
         photographer,
         portfolio,
@@ -40,8 +41,10 @@ async function getDataPhotographer(photographerId) {
 
     };
 }
+
 /**
- * affichage de la carte contact du photographe
+ *  affichage de la carte contact du photographe
+ * @param {string[]} photographer donnée du photographe  
  */
 async function displayPhotographerContact(photographer) {
     const { name, portrait, city, country, tagline, description, price, totalLikes } = photographer;
@@ -89,7 +92,12 @@ function displayNavList() {
 
 
 
-// Events, open/close the dropDownMenu
+
+/**
+ * Events, open/close the dropDownMenu
+ *@param {string[]} portfolioMedia element du portfolio
+ * @param {string[]} photographer donnée du photographe 
+ */
 function dropDown(portfolioMedia, photographer) {
     let arrowOpen = document.getElementsByClassName('type-btn');
     let arrowClose = document.getElementsByClassName('arrow-up-close');
@@ -110,8 +118,11 @@ function dropDown(portfolioMedia, photographer) {
     }
 }
 
+
 /**
  * mise a jour des media selon les filtres
+ *@param {string[]} portfolioMedia element du portfolio
+ * @param {string[]} photographer donnée du photographe 
  */
 
 function updateMedia(portfolioMedia, photographer) {
@@ -120,67 +131,78 @@ function updateMedia(portfolioMedia, photographer) {
     let hiddentype = document.getElementsByClassName('hidden-type');
     let typeBtn = Array.from(document.getElementsByClassName('type'));
 
-
+    /**
+     * @param {MouseEvent} typebtn selection du filtrage au click
+     */
     typeBtn.forEach((btn, index) => btn.addEventListener('click', () => {
         if (index == 0) {
             btnSelection.innerHTML = `Popularité`;
             items.sort((a, b) => b.likes - a.likes);
             displayMedia(items, photographer);
             hiddentype[0].style.display = "none";
-            console.log(items);
         } else if (index == 1) {
             btnSelection.innerHTML = `Dates`;
             items.sort((a, b) => b.date.localeCompare(a.date));
             displayMedia(items, photographer);
             hiddentype[0].style.display = "none";
-            console.log(items);
+
         } else if (index == 2) {
             btnSelection.innerHTML = `Titre`;
             items.sort((a, b) => a.title.localeCompare(b.title));
             displayMedia(items, photographer);
             hiddentype[0].style.display = "none";
-            console.log(items);
         }
 
     }));
+
+    /**
+     * @param {KeyboardEvent} typebtn selection du filtrage avec tabindex et entrée
+     */
+
     typeBtn.forEach((btn, index) => btn.addEventListener('keydown', (e) => {
         if (index == 0 && e.key === 'Enter') {
             btnSelection.innerHTML = `Popularité`;
             items.sort((a, b) => b.likes - a.likes);
             displayMedia(items, photographer);
             hiddentype[0].style.display = "none";
-            console.log(items);
+
         } else if (index == 1 && e.key === 'Enter') {
             btnSelection.innerHTML = `Dates`;
             items.sort((a, b) => b.date.localeCompare(a.date));
             displayMedia(items, photographer);
             hiddentype[0].style.display = "none";
-            console.log(items);
+
         } else if (index == 2 && e.key === 'Enter') {
             btnSelection.innerHTML = `Titre`;
             items.sort((a, b) => a.title.localeCompare(b.title));
             displayMedia(items, photographer);
             hiddentype[0].style.display = "none";
-            console.log(items);
+
         }
 
     }));
 
 }
 
+
 /**
  * affichage du total des likes et du prix par jour
+ * @param {string[]} photographer donnée du prix du photographe
+ * @param {number} totalLikes likes total des media du photographe
  */
-async function displaytotalLikes(photographer, totalLikes) {
+function displaytotalLikes(photographer, totalLikes) {
     const { price } = photographer;
     const infoLikeDay = document.querySelector(".total-like-jour");
-    infoLikeDay.innerHTML = `<div class="gestion-likes"> <p class="value-Total-Like">${totalLikes}
+    infoLikeDay.innerHTML = `<div class="gestion-likes" tabindex="9"> <p class="value-Total-Like">${totalLikes}
     </p><img src="./assets/icons/heart-solid.svg" class="infos-Likes-Icon1" alt="icon like"/>  
      <p class="price" tabindex="0">${price}€/jour</p> </div>`;
 }
 
+
 /**
  * affichage du contenu media de base avec appel de la fonction d'incrémentation des likes
+ * @param {string[]} portfolioMedia element du portfolio
+ * @param {string[]} photographer donnée du photographe
  */
 async function displayMedia(portfolioMedia, photographer) {
     const sectionPortfolio = document.querySelector(".portfolio-section");
@@ -191,8 +213,7 @@ async function displayMedia(portfolioMedia, photographer) {
         sectionPortfolio.appendChild(mediaElement);
     });
     likeIncremente();
-    displayLightbox();
-    // Lightbox.init();
+    displayLightbox(portfolioMedia, photographer);
 
 }
 
@@ -204,27 +225,32 @@ function likeIncremente() {
 
     let heart = document.querySelectorAll(".infos-Likes-Icon");
     const totalLikes = document.querySelector(".value-Total-Like");
-    // console.log(heart);
+
+    /**
+     * @param {MouseEvent} heart validation du like au click du coeur
+     */
     for (let i = 0; i < heart.length; i++) {
         heart[i].addEventListener("click", (event) => {
             event.preventDefault;
-            // console.log("ok");
+
             let buttonClicked = event.target;
             let likeSpan = buttonClicked.parentElement.children[0];
-            // console.log(likespan);
+
             let values = parseInt(likeSpan.textContent);
-            // console.log(valeur);
+
             let newvalue = values + 1;
-            // console.log(newvalue);
+
             likeSpan.textContent = `${newvalue}`;
             currentTotalLike = parseInt(totalLikes.textContent);
-            // console.log(currenttotalLike);
+
             let newtotalLike = currentTotalLike + 1;
             totalLikes.textContent = `${newtotalLike}`;
 
         });
     }
-
+    /**
+     * @param {KeyboardEvent} heart validation du like avec la touche entrée
+     */
     for (let i = 0; i < heart.length; i++) {
         heart[i].addEventListener("keydown", (event) => {
             event.preventDefault;
@@ -261,13 +287,12 @@ async function init() {
     const photographerId = parseInt(urlParams.get("photographer"));
     const { photographer, portfolio, totalLikes } = await getDataPhotographer(photographerId);
     displaytotalLikes(photographer, totalLikes);
-    // console.log(photographer);
     displayPhotographerContact(photographer);
     displayNavList(portfolio, photographerId);
     dropDown(portfolio, photographer);
     updateMedia(portfolio, photographer);
-
     displayMedia(portfolio, photographer);
+
 }
 
 init();

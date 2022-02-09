@@ -4,12 +4,9 @@ async function getPhotographers() {
     await fetch('data/photographers.json').then(async response => {
         try {
             data = await response.json();
-            console.log('response datas?', data);
         } catch (error) {
             console.log(error);
         }
-
-        // console.log(data.photographers);
     });
     // et bien retourner le tableau photographers seulement une fois
     return ({

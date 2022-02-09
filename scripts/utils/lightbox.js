@@ -1,148 +1,144 @@
-function displayLightbox() {
-    const modal = document.querySelector('.slider-media-container');
-    const containerimg = document.querySelector('.lightbox-container');
-    const close = document.querySelector(".lightbox-close");
-
-    const links = Array.from(document.querySelectorAll('a[href$=".png"],a[href$=".jpg"],a[href$=".mp4"]'));
-
-    const gallery = links.map(link => link.getAttribute('href'));
-
-    const title = links.map(link => link.getAttribute('id'));
-    console.log(title);
-
-    console.log(gallery);
-
-    links.forEach(link => link.addEventListener('click', (e) => {
-        e.preventDefault();
-        let href = link.getAttribute('href');
-        let index = gallery.indexOf(href);
-        console.log(index);
-        modal.classList.add('show');
-        modal.focus();
-        console.log(link.href);
-        let url = link.href;
-        // let unplit = url.split("/")[5];
-        // console.log(unplit);
-        console.log(link);
-        const idlink = link.getAttribute('id');
-        console.log(idlink);
-        newidTtitle = idlink.replaceAll("-", " ");
-        console.log(newidTtitle);
-        extlink = url.substring(url.lastIndexOf('.') + 1);
-        console.log(extlink);
-        Lightboxbtnclose();
-        nextarrow(gallery, title, link, index);
-        prevarrow(gallery, title, link, index);
-
-        if (extlink == ('jpg')) {
-            containerimg.innerHTML = ` <figure>
-                <img src="${link}" alt="${newidTtitle}">
-                <figcaption>${newidTtitle}</figcaption>
-            </figure>`;
-        } else {
-            containerimg.innerHTML = `<figure>
-                 <video title="${newidTtitle}" preload="metadata" controls autoplay  >
-                 <source src="${link}" type="video/mp4">
-               </video>
-                 <figcaption>${newidTtitle}</figcaption>
-             </figure>
-            `;
-        }
-
-
-    }));
-
-}
 /**
- * ferme la LightBox
- * @param {MouseEvent} e
- * @param {keyboardEvent} e
+ * Affichage de la lightbox et mise en place de la navigation
+ *@param {string[]} portfolioMedia element du portfolio
+ * @param {string[]} photographer donnée du photographe 
  */
-function Lightboxbtnclose() {
-    const container = document.querySelector(".slider-media-container");
+
+function displayLightbox(portfolioMedia, photographer) {
+    const openLinks = document.querySelectorAll(".media-card-img");
+    const lightbox = document.querySelector(".slider-media-container");
     const close = document.querySelector(".lightbox-close");
-    close.addEventListener('click', (e) => {
-            e.preventDefault();
-            container.classList.remove('show');
-        }
-
-    );
-    close.addEventListener('keyup', (e) => {
-            e.preventDefault();
-            if (e.key === 'Escape') {
-                container.classList.remove('show');
-            }
-        }
-
-    );
-};
-
-
-function nextarrow(gallery, title, link, index) {
-
-    const next = document.querySelector('.lightbox-next');
-    next.addEventListener('click', (e) => {
-
-        e.preventDefault();
-
-
-        console.log('ok');
-        if (index > -1 && index < gallery.length - 1) {
-            index++;
-            console.log(index);
-            updatelightbox(gallery[index], title[index], index);
-
-        } else if (index == gallery.length - 1) {
-            index = 0;
-            console.log(index);
-            updatelightbox(gallery[0], title[0], index);
-        }
-    });
-}
-
-function prevarrow(gallery, title, link, index) {
-
+    const container = document.querySelector(".lightbox-container");
     const prev = document.querySelector('.lightbox-prev');
-    prev.addEventListener('click', (e) => {
+    const next = document.querySelector('.lightbox-next');
+    let domMediaId = 0;
+    let indexVue = -1;
 
-        e.preventDefault();
-        console.log('ok');
-        if (index > 0) {
-            index--;
-            console.log(index);
-            updatelightbox(gallery[index], title[index], );
-        } else if (index == 0) {
-            index = gallery.length - 1;
-            console.log(index);
-            updatelightbox(gallery[-1], title[-1], );
-        }
+    /**
+     * @param {MouseEvent} openlightbox
+     */
+    openLinks.forEach(Itemsclicks => {
+        Itemsclicks.addEventListener("click", (e) => {
+            let idItems = e.target.getAttribute('media-ID');
+            portfolioMedia.forEach(portfolio => {
+                if (portfolio.id == idItems) {
+                    getLightBox(portfolio, container);
+                    indexVue = portfolioMedia.findIndex((portfolio) => portfolio.id == domMediaId);
+                }
+            });
+            launchLightbox();
+            nav();
 
 
+        });
+        Itemsclicks.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                Itemsclicks.click();
+            }
+        });
 
     });
-}
 
-function updatelightbox(gallery, title) {
-    const containerimg = document.querySelector('.lightbox-container');
-    console.log(gallery);
-    newidTtitle = title.replaceAll("-", " ");
-    console.log(title);
+    // open lightbox fonction
+    function launchLightbox() {
+        lightbox.style.display = "block";
+        lightbox.focus();
 
-    // extname = newlink.substring(newlink);
-    extlink = gallery.substring(gallery.lastIndexOf('.') + 1);
-    console.log(extlink);
-    if (extlink == ('jpg')) {
-        containerimg.innerHTML = ` <figure>
-                <img src="${gallery}" alt="${newidTtitle}">
-                <figcaption>${newidTtitle}</figcaption>
-            </figure>`;
-    } else if (extlink == ('mp4')) {
-        containerimg.innerHTML = `<figure>
-                 <video title="${newidTtitle}" preload="metadata" controls autoplay  >
-                 <source src="${gallery}" type="video/mp4">
-               </video>
-                 <figcaption>${newidTtitle}</figcaption>
-             </figure>
-            `;
+    };
+
+    // close lightbox fonction
+    close.addEventListener("click", closeLightBox);
+
+    function closeLightBox() {
+        lightbox.style.display = "none";
+        document.querySelector(".lightbox-container").innerHTML = ``;
+        window.location.reload;
+
     }
-}
+
+    function nav() {
+        next.addEventListener("click", (e) => {
+            e.preventDefault();
+            nextArrow();
+        });
+        prev.addEventListener("click", (e) => {
+            e.preventDefault();
+            prevArrow();
+        });
+    }
+
+    function nextArrow() {
+        if (indexVue > -1 && indexVue < portfolioMedia.length - 1) {
+            indexVue++;
+
+            container.innerHTML = "";
+            getLightBox(portfolioMedia[indexVue], container);
+        } else if (indexVue == portfolioMedia.length - 1) {
+            indexVue = 0;
+
+            container.innerHTML = "";
+            getLightBox(portfolioMedia[0], container);
+        }
+    }
+
+    function prevArrow() {
+        if (indexVue > 0) {
+            indexVue--;
+
+            container.innerHTML = "";
+            getLightBox(portfolioMedia[indexVue], container);
+        } else if (indexVue == 0) {
+            indexVue = portfolioMedia.length - 1;
+
+            container.innerHTML = "";
+            getLightBox(portfolioMedia[portfolioMedia.length - 1], container);
+        }
+    }
+    /**
+     * 
+     * @param {string[]} items élément du tableau
+     * @returns le contenu de la lighbox selon le type de fichier
+     */
+    function lightboxFactory(items) {
+        getLightBoxdisplay = () => {
+            const containerInLightbox = document.createElement("div");
+            containerInLightbox.classList.add("lightbox-content");
+            if (isAVideo) {
+                containerInLightbox.innerHTML = ` 
+            <video class="media-card-lightbox" tabindex="0" media-id="${items.id}" preload="metadata" controls autoplay tabindex="1" aria-label="${items.title}">
+                <source src="assets/video/${items.video}" type="video/mp4">
+            </video>
+            <p tabindex="1" lang="en" aria-label="titre du média">${items.title}</p> 
+          `;
+            } else {
+                containerInLightbox.innerHTML = `
+            <img class="media-card-lightbox" media-id="${items.id}" src="assets/photo/${photographer.id}/${items.image}" 
+            tabindex="1" alt="${items.alt}" aria-label="${items.alt}"/>
+            <p tabindex="1" lang="en" aria-label="titre du média">${items.title}</p> 
+          `;
+            }
+            return containerInLightbox;
+        };
+        return this;
+
+    };
+
+
+
+
+    /**
+     * 
+     * @param {string[]} itemsSelected media selectionné 
+     * @param {*} containerDom emplacement de la lightbox
+     * @returns 
+     */
+    function getLightBox(itemsSelected, containerDom) {
+        isAVideo = itemsSelected.video;
+        const templateLight = lightboxFactory(itemsSelected, photographer);
+        const udaptelightbox = templateLight.getLightBoxdisplay();
+        containerDom.appendChild(udaptelightbox),
+            domMediaId = udaptelightbox.querySelector(".media-card-lightbox").getAttribute("media-id");
+        return domMediaId;
+    };
+
+};
