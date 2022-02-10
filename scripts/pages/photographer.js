@@ -57,7 +57,7 @@ async function displayPhotographerContact(photographer) {
     <p class="city-Contact" tabindex="0">${city}, ${country}</p>
     <p class="tagline-Contact" tabindex="0">${tagline}</p>
     </div></div>
-    <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+    <button class="contact_button" >Contactez-moi</button>
      <img src=${picture} class="profil-picture" alt="${description}">
     `;
     getPhotographerForm(photographer);
@@ -83,8 +83,8 @@ function displayNavList() {
                         <li id="filtre-pop" class="type border-li" aria-label="popularité" tabindex="0" aria-selected="true" role='option'>Popularité
                             <img class="arrow-up-close" src="./assets/icons/chevron-up-solid.svg" tabindex="0" alt="Arrow Icon" aria-hidden="true" />
                         </li>
-                        <li id="filtre-date" class="type border-li" tabindex="0" aria-selected="false" role='option'>Date</li>
-                        <li id="filtre-titre" class="type" tabindex="0" aria-selected="false" role='option'>Titre</li>
+                        <li id="filtre-date" class="type border-li" tabindex="0" aria-label="Date" aria-selected="false" role='option'>Date</li>
+                        <li id="filtre-titre" class="type" tabindex="0" aria-selected="false" aria-label="Titre" role='option'>Titre</li>
                     </ul>
                 </div>
             </div > `;

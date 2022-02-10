@@ -5,7 +5,7 @@ function getPhotographerForm(photographer) {
     namePhotographer.innerHTML = `Contactez moi  ${photographer.name}`;
     namePhotographer.setAttribute("aria-label", `${photographer.name}`);
     const formControl = document.getElementById("form-container");
-
+    const contactBtn = document.querySelector(".contact_button");
     const submitForm = document.getElementById("submitform");
     const closeValid = document.getElementById("close-valid-message");
 
@@ -20,7 +20,11 @@ function getPhotographerForm(photographer) {
     const alertEmail = document.getElementById("alert-email");
     const alertMessage = document.getElementById("alert-message");
 
+    contactBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        displayModal();
 
+    });
     closeValid.addEventListener('click', (e) => {
         e.preventDefault();
         closeModalValid();
@@ -36,6 +40,11 @@ function getPhotographerForm(photographer) {
         if (e.key === "Escape") {
             closeModal();
             closeModalValid();
+        }
+    });
+    contactBtn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            displayModal();
         }
     });
 
