@@ -126,7 +126,7 @@ function displayLightbox(portfolioMedia, photographer) {
             } else {
                 containerInLightbox.innerHTML = `
             <img class="media-card-lightbox" media-id="${items.id}" src="assets/photo/${photographer.id}/${items.image}" 
-            tabindex="1" alt="${items.alt}" aria-label="${items.alt}"/>
+            tabindex="1" alt="${items.title}" aria-label="${items.title}"/>
             <p tabindex="1" lang="en" aria-label="titre du média">${items.title}</p> 
           `;
             }

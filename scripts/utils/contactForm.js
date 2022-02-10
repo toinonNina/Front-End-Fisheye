@@ -11,11 +11,9 @@ function getPhotographerForm(photographer) {
 
     // input form
     const firstname = document.querySelector("#first-name");
-    console.log(firstname);
     const lastname = document.querySelector("#last-name");
     const email = document.querySelector("#email");
     const messageContent = document.querySelector("#message-content");
-    console.log(messageContent);
     // message d'erreur
     const alertFirstName = document.getElementById("alert-firts-name");
     const alertLastName = document.getElementById("alert-last-name");
@@ -67,7 +65,7 @@ function getPhotographerForm(photographer) {
 
         //controle prénom
         const regExControlname = /^[A-Za-z-àâäéèêëïîôöùûüç ]{2,15}$/;
-        if (!regExControlname.test(firstname.value) || firstname.value == "" && firstname.value.trimLeft()) {
+        if (!regExControlname.test(firstname.value) || firstname.value == "" && firstname.value.trim()) {
             alertFirstName.innerHTML = "Ne doit contenir que des lettres (au moins 2)";
             firstname.style.border = "2px solid red";
             return false;
@@ -94,22 +92,9 @@ function getPhotographerForm(photographer) {
             alertEmail.innerHTML = "";
             email.style.border = "none";
         }
-        //controle message
-        // let messageisvalid = false;
-        // if (messageContent.value !== "" && firstname.value.trim()) {
-        //     messageisvalid = true;
-        //     alertMessage.innerHTML = "";
-        //     messageContent.style.border = "none";
-
-        // } else {
-        //     alertMessage.innerHTML = "ce champs doit être remplis";
-        //     messageContent.style.border = "2px solid red";
-        //     console.log(messageContent.value);
 
 
-        // }
-
-        if (messageContent.value.trimLeft() == "") {
+        if (messageContent.value.trim() == "") {
             alertMessage.innerHTML = "Ne doit contenir que des lettres (au moins 2)";
             messageContent.style.border = "2px solid red";
             return false;
@@ -128,15 +113,14 @@ function getPhotographerForm(photographer) {
         document.getElementById("form-container").reset();
     }
 
-
     submitForm.addEventListener("click", (e) => {
         e.preventDefault();
         controlInputs();
         if (controlInputs() === true) {
-            console.log("Prénom :" + firstname.value.trimLeft());
+            console.log("Prénom :" + firstname.value.trim());
             console.log("Nom :" + lastname.value);
             console.log("Email :" + email.value);
-            console.log("votre message :" + messageContent.value.trimLeft());
+            console.log("votre message :" + messageContent.value.trim());
             console.log("Votre message a été envoyé a " + photographer.name);
             resetForm(),
                 closeModal();
@@ -157,27 +141,24 @@ function getPhotographerForm(photographer) {
     }
 
 
-}
+
+    function displayModal() {
+        const modal = document.getElementById("contact-modal");
+        const containermodal = document.querySelector('#form-container');
+        modal.style.display = "block";
+        containermodal.focus();
+    }
 
 
+    function closeModal() {
+        const modal = document.getElementById("contact-modal");
+        modal.style.display = "none";
+    }
 
-
-function displayModal() {
-    const modal = document.getElementById("contact-modal");
-    const containermodal = document.querySelector('#form-container');
-    modal.style.display = "block";
-    containermodal.focus();
-}
-
-
-function closeModal() {
-    const modal = document.getElementById("contact-modal");
-    modal.style.display = "none";
-}
-
-function closeModalValid() {
-    const launchValidation = document.querySelector(".modal-confirm");
-    launchValidation.style.display = "none";
-    const portfoliosection = document.querySelector('.portfolio-section');
-    portfoliosection.focus();
+    function closeModalValid() {
+        const launchValidation = document.querySelector(".modal-confirm");
+        launchValidation.style.display = "none";
+        const portfoliosection = document.querySelector('.portfolio-section');
+        portfoliosection.focus();
+    }
 }
