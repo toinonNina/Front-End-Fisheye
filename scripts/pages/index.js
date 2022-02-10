@@ -1,5 +1,4 @@
 async function getPhotographers() {
-    // Penser à remplacer par les données récupérées dans le json
     let data = "";
     await fetch('data/photographers.json').then(async response => {
         try {
@@ -8,7 +7,6 @@ async function getPhotographers() {
             console.log(error);
         }
     });
-    // et bien retourner le tableau photographers seulement une fois
     return ({
         photographers: [...data.photographers]
     });
@@ -25,7 +23,6 @@ async function displayData(photographers) {
 };
 
 async function init() {
-    // Récupère les datas des photographes
     const { photographers } = await getPhotographers();
     displayData(photographers);
 };

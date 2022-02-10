@@ -14,7 +14,7 @@ function getPhotographerForm(photographer) {
     const lastname = document.querySelector("#last-name");
     const email = document.querySelector("#email");
     const messageContent = document.querySelector("#message-content");
-    // message d'erreur
+    // error message
     const alertFirstName = document.getElementById("alert-firts-name");
     const alertLastName = document.getElementById("alert-last-name");
     const alertEmail = document.getElementById("alert-email");
@@ -50,9 +50,9 @@ function getPhotographerForm(photographer) {
 
 
 
-    // fonction qui va controler les différents input et insérer des message d'erreur dans le html
+    // function that will control the different inputs and insert error messages in the html
     /**
-     * controle d'espacement avant caratère des inputs
+     * spacing control before input characters
      * @returns 
      */
 
@@ -70,42 +70,48 @@ function getPhotographerForm(photographer) {
 
     function controlInputs() {
 
-
-
-        //controle prénom
+        //control firstname
         const regExControlname = /^[A-Za-z-àâäéèêëïîôöùûüç ]{2,15}$/;
         if (!regExControlname.test(firstname.value) || firstname.value == "" && firstname.value.trim()) {
-            alertFirstName.innerHTML = "Ne doit contenir que des lettres (au moins 2)";
+            alertFirstName.innerHTML = "le champs Prenom ne doit contenir que des lettres (au moins 2) et ne peut pas être vide";
             firstname.style.border = "2px solid red";
+            alertFirstName.className = 'error-current';
+            firstname.className = "current-error";
             return false;
         } else {
             alertFirstName.innerHTML = "";
             firstname.style.border = "none";
         }
-        // controle nom de famille
+        // control LastName
         if (!regExControlname.test(lastname.value) || lastname.value == "") {
-            alertLastName.innerHTML = "Ne doit contenir que des lettres (au moins 2)";
+            alertLastName.innerHTML = "le champs Nom ne doit contenir que des lettres (au moins 2)";
             lastname.style.border = "2px solid red";
+            alertLastName.className = 'error-current';
+            lastname.className = "current-error";
             return false;
         } else {
             alertLastName.innerHTML = "";
             lastname.style.border = "none";
         }
-        // controle de l'email
+        // control email
         const regExControlEmail = /^[\w-.]+@([\w-]+.)+[\w-]{2,}$/g;
         if (!regExControlEmail.test(email.value) || email.value == "") {
             alertEmail.innerHTML = "veuillez entrer une adresse mail valide";
             email.style.border = "2px solid red";
+            alertEmail.className = 'error-current';
+            email.className = "current-error";
             return false;
         } else {
             alertEmail.innerHTML = "";
             email.style.border = "none";
         }
 
-
+        // control message Content
         if (messageContent.value.trim() == "") {
             alertMessage.innerHTML = "Ne doit contenir que des lettres (au moins 2)";
             messageContent.style.border = "2px solid red";
+            alertMessage.className = 'error-current';
+            messageContent.className = "current-error";
             return false;
         } else {
             alertMessage.innerHTML = "";
@@ -114,9 +120,6 @@ function getPhotographerForm(photographer) {
         return true;
     }
 
-
-
-    // fonction qui va reset le formulaire aprés submit;
 
     function resetForm() {
         document.getElementById("form-container").reset();
@@ -134,9 +137,10 @@ function getPhotographerForm(photographer) {
             resetForm(),
                 closeModal();
             launchModal();
-            const launchValidation = document.querySelector(".modal-confirm");
-            launchValidation.focus();
+
         } else {
+            error();
+
             return false;
         }
     });
@@ -147,6 +151,7 @@ function getPhotographerForm(photographer) {
         launchValidation.style.display = "block";
         const messageValid = document.querySelector('#message-valid');
         messageValid.innerHTML = `Votre message a bien été envoyé a ${photographer.name} `;
+        launchValidation.focus();
     }
 
 
@@ -169,5 +174,12 @@ function getPhotographerForm(photographer) {
         launchValidation.style.display = "none";
         const portfoliosection = document.querySelector('.portfolio-section');
         portfoliosection.focus();
+    }
+
+    function error() {
+        const errorCurrent = document.querySelector(".error-current");
+        errorCurrent.setAttribute("tabindex", "0");
+        const currentError = document.querySelector(".current-error");
+        currentError.focus();
     }
 }

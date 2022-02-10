@@ -1,22 +1,17 @@
-/**
- * fonction factorie pour établir le chemin des medias 
- */
-
 function factoryMedia(elementportfolio, photographer) {
 
     const { id, title, image, video, likes, date, name, type } = elementportfolio;
-
+    // establish the media path
     let imglink = `assets/photo/${photographer.id}/${image}`;
     let linkvideo = `assets/video/${video}`;
 
     /**
-     * function incluant un comparatif pour le type de media a afficher
+     * function including a comparison for the type of media to display
      */
     function getmediaelement() {
         const article = document.createElement("article");
         article.className = 'filter';
 
-        //comparé si le type est image ou video
         if (elementportfolio.hasOwnProperty('image')) {
             article.innerHTML = ` <img tabindex="0" class="media-card-img" media-id="${id}" src="${imglink}" alt="${title}">
       <div class="media-card-text">

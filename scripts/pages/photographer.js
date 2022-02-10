@@ -1,11 +1,10 @@
-//Mettre le code JavaScript lié à la page photographer.html
 /**
  * 
  * @param {number} photographerId 
- * @returns donnée du photographe et des media selon l'id ainsi que le cumul des likes
+ * @returns data of the photographer and the media according to the id as well as the accumulation of likes
  */
 async function getDataPhotographer(photographerId) {
-    //récuperer les données json
+
     let data = "";
     await fetch('data/photographers.json').then(async response => {
         try {
@@ -14,11 +13,10 @@ async function getDataPhotographer(photographerId) {
             console.log(error);
         }
     });
-    // on cherche dans le fichier json les données via l'id du photographer
+
     const photographer = data.photographers.find((photographe) => photographe.id === photographerId);
-    // je récupère les media du photographe
+
     const portfolio = data.media
-        //Filtrage des media en fonction de l'id du photographe et du nombre de like pour la popularité
         .filter((media) => media.photographerId === photographerId)
         .sort((a, b) => {
             if (a.likes > b.likes) {
@@ -30,7 +28,7 @@ async function getDataPhotographer(photographerId) {
             };
         });
 
-    //function accumulateur des likes des medias
+    //function media likes accumulator
     const totalLikes = portfolio.reduce((accumulateur, current) => {
         return accumulateur + current.likes;
     }, 0);
@@ -43,15 +41,14 @@ async function getDataPhotographer(photographerId) {
 }
 
 /**
- *  affichage de la carte contact du photographe
- * @param {string[]} photographer donnée du photographe  
+ *  
+ * @param {string[]} photographer photographer contact  
  */
 async function displayPhotographerContact(photographer) {
     const { name, portrait, city, country, tagline, description, price, totalLikes } = photographer;
-    // console.log(photographer);
     const picture = `assets/photographers/${portrait}`;
     const sectionContact = document.querySelector(".photograph-header");
-    // console.log(sectionContact);
+
     sectionContact.innerHTML = `<div class="photographer-info">
     <h1 tabindex="0">${name}</h1><div class="photographer-description">
     <p class="city-Contact" tabindex="0">${city}, ${country}</p>
@@ -65,9 +62,7 @@ async function displayPhotographerContact(photographer) {
 }
 
 
-/**
- * affichage du menu de filtrage
- */
+
 function displayNavList() {
 
     const navDrop = document.querySelector(".nav-dropbox");
@@ -96,8 +91,8 @@ function displayNavList() {
 
 /**
  * Events, open/close the dropDownMenu
- *@param {string[]} portfolioMedia element du portfolio
- * @param {string[]} photographer donnée du photographe 
+ *@param {string[]} portfolioMedia 
+ * @param {string[]} photographer  
  */
 function dropDown(portfolioMedia, photographer) {
     let arrowOpen = document.getElementsByClassName('type-btn');
@@ -121,9 +116,9 @@ function dropDown(portfolioMedia, photographer) {
 
 
 /**
- * mise a jour des media selon les filtres
- *@param {string[]} portfolioMedia element du portfolio
- * @param {string[]} photographer donnée du photographe 
+ * update of the media according to the filters
+ *@param {string[]} portfolioMedia 
+ * @param {string[]} photographer 
  */
 
 function updateMedia(portfolioMedia, photographer) {
@@ -133,7 +128,7 @@ function updateMedia(portfolioMedia, photographer) {
     let typeBtn = Array.from(document.getElementsByClassName('type'));
 
     /**
-     * @param {MouseEvent} typebtn selection du filtrage au click
+     * @param {MouseEvent} typebtn click filtering selection
      */
     typeBtn.forEach((btn, index) => btn.addEventListener('click', () => {
         if (index == 0) {
@@ -157,7 +152,7 @@ function updateMedia(portfolioMedia, photographer) {
     }));
 
     /**
-     * @param {KeyboardEvent} typebtn selection du filtrage avec tabindex et entrée
+     * @param {KeyboardEvent} typebtn selection of filtering with tabindex and enter
      */
 
     typeBtn.forEach((btn, index) => btn.addEventListener('keydown', (e) => {
@@ -187,9 +182,9 @@ function updateMedia(portfolioMedia, photographer) {
 
 
 /**
- * affichage du total des likes et du prix par jour
- * @param {string[]} photographer donnée du prix du photographe
- * @param {number} totalLikes likes total des media du photographe
+ * display of total likes and price per day
+ * @param {string[]} photographer 
+ * @param {number} totalLikes 
  */
 function displaytotalLikes(photographer, totalLikes) {
     const { price } = photographer;
@@ -201,9 +196,9 @@ function displaytotalLikes(photographer, totalLikes) {
 
 
 /**
- * affichage du contenu media de base avec appel de la fonction d'incrémentation des likes
- * @param {string[]} portfolioMedia element du portfolio
- * @param {string[]} photographer donnée du photographe
+ * display of basic media content with call to the likes incrementation function
+ * @param {string[]} portfolioMedia portfolio element
+ * @param {string[]} photographer photographer data
  */
 async function displayMedia(portfolioMedia, photographer) {
     const sectionPortfolio = document.querySelector(".portfolio-section");
@@ -220,7 +215,7 @@ async function displayMedia(portfolioMedia, photographer) {
 
 
 /**
- * function d'incrémentation des likes de chaque media avec mise a jour du total des likes 
+ * function incrementation of the likes of each media with update of the total of likes 
  */
 function likeIncremente() {
 
@@ -228,7 +223,7 @@ function likeIncremente() {
     const totalLikes = document.querySelector(".value-Total-Like");
 
     /**
-     * @param {MouseEvent} heart validation du like au click du coeur
+     * @param {MouseEvent} heart 
      */
     for (let i = 0; i < heart.length; i++) {
         heart[i].addEventListener("click", (event) => {
@@ -250,23 +245,19 @@ function likeIncremente() {
         });
     }
     /**
-     * @param {KeyboardEvent} heart validation du like avec la touche entrée
+     * @param {KeyboardEvent} heart 
+
      */
     for (let i = 0; i < heart.length; i++) {
         heart[i].addEventListener("keydown", (event) => {
             event.preventDefault;
-            // console.log("ok");
             if (event.key === 'Enter') {
                 let buttonClicked = event.target;
                 let likeSpan = buttonClicked.parentElement.children[0];
-                // console.log(likespan);
                 let values = parseInt(likeSpan.textContent);
-                // console.log(valeur);
                 let newvalue = values + 1;
-                // console.log(newvalue);
                 likeSpan.textContent = `${newvalue}`;
                 currentTotalLike = parseInt(totalLikes.textContent);
-                // console.log(currenttotalLike);
                 let newtotalLike = currentTotalLike + 1;
                 totalLikes.textContent = `${newtotalLike}`;
             }
@@ -282,9 +273,9 @@ function likeIncremente() {
 
 async function init() {
 
-    // récuperer l'id du photographe dans l'url et passer ce paramètre pour récuperer les données de ce photographe et ses media
+    //retrieve the photographer's id in the url and pass this parameter to retrieve the data of this photographer and his media
     const urlParams = new URLSearchParams(window.location.search);
-    //on analyse avec parseInt la chaine de caratère de l'url pour être sur de récuperer un nombre 
+    //we analyze with parseInt the character string of the url to be sure to recover a number 
     const photographerId = parseInt(urlParams.get("photographer"));
     const { photographer, portfolio, totalLikes } = await getDataPhotographer(photographerId);
     displaytotalLikes(photographer, totalLikes);

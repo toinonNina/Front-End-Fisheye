@@ -1,7 +1,7 @@
 /**
- * Affichage de la lightbox et mise en place de la navigation
- *@param {string[]} portfolioMedia element du portfolio
- * @param {string[]} photographer donnée du photographe 
+ * lightbox display and navigation menu
+ *@param {string[]} portfolioMedia portfolio items
+ * @param {string[]} photographer photographer data
  */
 
 function displayLightbox(portfolioMedia, photographer) {
@@ -10,7 +10,6 @@ function displayLightbox(portfolioMedia, photographer) {
     const close = document.querySelector(".lightbox-close");
     const container = document.querySelector(".lightbox-container");
     const prev = document.querySelector('.lightbox-prev');
-    console.log(prev);
     const next = document.querySelector('.lightbox-next');
     let domMediaId = 0;
     let indexVue = -1;
@@ -40,14 +39,14 @@ function displayLightbox(portfolioMedia, photographer) {
 
     });
 
-    // open lightbox fonction
+    // open lightbox 
     function launchLightbox() {
         lightbox.style.display = "block";
         lightbox.focus();
 
     };
 
-    // close lightbox fonction
+    // close lightbox 
     close.addEventListener("click", closeLightBox);
 
 
@@ -109,8 +108,8 @@ function displayLightbox(portfolioMedia, photographer) {
     }
     /**
      * 
-     * @param {string[]} items élément du tableau
-     * @returns le contenu de la lighbox selon le type de fichier
+     * @param {string[]} items items array
+     * @returns the contents of the lighbox according to the type of file
      */
     function lightboxFactory(items) {
         getLightBoxdisplay = () => {
@@ -141,8 +140,8 @@ function displayLightbox(portfolioMedia, photographer) {
 
     /**
      * 
-     * @param {string[]} itemsSelected media selectionné 
-     * @param {*} containerDom emplacement de la lightbox
+     * @param {string[]} itemsSelected 
+     * @param {*} containerDom 
      * @returns 
      */
     function getLightBox(itemsSelected, containerDom) {
