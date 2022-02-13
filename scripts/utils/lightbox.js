@@ -68,12 +68,15 @@ function displayLightbox(portfolioMedia, photographer) {
             prevArrow();
         });
         window.addEventListener("keydown", (e) => {
+            const helpfocus = document.querySelector(".slider-media-container");
             if (e.key === "ArrowRight") {
                 nextArrow();
             } else if (e.key === "ArrowLeft") {
                 prevArrow();
             } else if (e.key === "Escape") {
                 closeLightBox();
+            } else if (e.key === 'Tab') {
+                if (document.activeElement === close) helpfocus.focus();
             }
         });
 
@@ -117,7 +120,7 @@ function displayLightbox(portfolioMedia, photographer) {
             containerInLightbox.classList.add("lightbox-content");
             if (isAVideo) {
                 containerInLightbox.innerHTML = ` 
-            <video class="media-card-lightbox" tabindex="0" media-id="${items.id}" preload="metadata" controls autoplay tabindex="1" aria-label="${items.title}">
+            <video class="media-card-lightbox" tabindex="1" media-id="${items.id}" preload="metadata" controls autoplay tabindex="1" aria-label="${items.title}">
                 <source src="assets/video/${items.video}" type="video/mp4">
             </video>
             <p tabindex="1" lang="en" aria-label="titre du média">${items.title}</p> 

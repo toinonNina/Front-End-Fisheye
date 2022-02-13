@@ -7,9 +7,7 @@
     <link rel="icon" type="image/png" href="assets/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <link href="css/style.css" rel="stylesheet" type="text/css" />
 
     <title>Fisheye - photographe </title>
@@ -17,7 +15,7 @@
 
 <body>
     <header>
-        <a href="index.html" tabindex="3    "><img src="assets/images/logo.png" class="logo-photographe" alt="logo Fisheye site photographe" /></a>
+        <a href="index.html" class="header-logo" tabindex="3"><img src="assets/images/logo.png" class="logo-photographe" alt="logo Fisheye site photographe" /></a>
     </header>
     <main id="main">
         <section class="photograph-header">
@@ -25,28 +23,27 @@
         </section>
         <nav class="nav-dropbox" role="navigation">
         </nav>
-        <section class="portfolio-section" tabindex="0">
+        <section class="portfolio-section">
 
         </section>
 
 
     </main>
-    <section class="slider-media-container" tabindex="0" aria-label="image closeup view">
+    <dialog class="slider-media-container" tabindex="-1" aria-label="image closeup view">
+        <button class="lightbox-prev" tabindex="1"><img src="assets/icons/chevron-right-solid.svg" alt="image précédente" /></button>
+        <div class="lightbox-container"></div>
+        <button class="lightbox-next" tabindex="1"><img src="assets/icons/chevron-right-solid.svg" alt="image suivante" /></button>
+        <button class="lightbox-close" tabindex="1"><img src="assets/icons/close.svg" alt="close dialog" /></button>
 
-        <div class="lightbox-container" tabindex="0"></div>
-        <button class="lightbox-close" tabindex="0"><img src="assets/icons/close.svg" alt="icon fermeture" /></button>
-        <button class="lightbox-next" tabindex="0"><img src="assets/icons/chevron-right-solid.svg" alt="image suivante" /></button>
-        <button class="lightbox-prev" tabindex="0"><img src="assets/icons/chevron-right-solid.svg" alt="image précédente" /></button>
-
-    </section>
-    <dialog id="contact-modal">
-        <div class="modal">
+    </dialog>
+    <aside id="contact-modal" tabindex="-1">
+        <div class="modal" tabindex="0">
             <header>
-                <h2 class="name-photographer">Contactez-moi</h2>
-                <img src="assets/icons/close.svg" tabindex="1" id="close-form" alt="fermer le formulaire" />
+                <h2 class="name-photographer" tabindex="1">Contactez-moi</h2>
+                <img src="assets/icons/close.svg" tabindex="2" id="close-form" alt="fermer le formulaire" />
             </header>
 
-            <form id="form-container" tabindex="1" name="user" method="get">
+            <form id="form-container" name="user" method="get">
                 <div>
                     <label for="first-name" aria-label="first-name">Prénom</label>
                     <input tabindex="1" type="text" id="first-name" required />
@@ -59,7 +56,7 @@
                 </div>
                 <div>
                     <label for="email" aria-label="email">Email</label>
-                    <input tabindex="1" type="text-control" id="email" />
+                    <input tabindex="1" type="text" id="email" required />
                     <div id="alert-email" class="alertspan"></div>
                 </div>
                 <div>
@@ -71,7 +68,7 @@
                 <div id="alert-Validation" class="alertspan"></div>
             </form>
         </div>
-    </dialog>
+    </aside>
 
     <div class=" modal-confirm">
         <div id="modal-body-validation" class="modal">

@@ -50,9 +50,9 @@ async function displayPhotographerContact(photographer) {
     const sectionContact = document.querySelector(".photograph-header");
 
     sectionContact.innerHTML = `<div class="photographer-info">
-    <h1 tabindex="0">${name}</h1><div class="photographer-description">
-    <p class="city-Contact" tabindex="0">${city}, ${country}</p>
-    <p class="tagline-Contact" tabindex="0">${tagline}</p>
+    <h1 tabindex="0">${name}</h1><div tabindex="0" class="photographer-description">
+    <p class="city-Contact" >${city}, ${country}</p>
+    <p class="tagline-Contact">${tagline}</p>
     </div></div>
     <button class="contact_button" >Contactez-moi</button>
      <img src=${picture} class="profil-picture" alt="${description}">
@@ -69,18 +69,18 @@ function displayNavList() {
     navDrop.innerHTML = `
      <div class="works-type">
                 <span id="type-text">Trier par</span>
-                <div id="type-wrapper">
+                <div id="type-wrapper" tabindex="-1">
                     <div class="type-btn">
-                        <button class="btn-click" aria-haspopup="listbox" >Popularité</button>
-                        <img class="arrow-down-close" src="./assets/icons/chevron-down-solid.svg" role='button' aria-expanded alt="Arrow Icon" />
+                        <button class="btn-click"  aria-haspopup="listbox" >Popularité</button>
+                        <img class="arrow-down-close"  src="./assets/icons/chevron-down-solid.svg" role='button' aria-expanded alt="fermer le menu" />
                     </div>
-                    <ul class="hidden-type" aria-activedescendant="listbox-populaire" tabindex="1"   role="listbox">
+                    <ul class="hidden-type" aria-activedescendant="listbox-populaire" role="listbox">
                         <li id="filtre-pop" class="type border-li" aria-label="popularité" tabindex="0" aria-selected="true" role='option'>Popularité
-                            <img class="arrow-up-close" src="./assets/icons/chevron-up-solid.svg" tabindex="0" alt="Arrow Icon" aria-hidden="true" />
+                            
                         </li>
                         <li id="filtre-date" class="type border-li" tabindex="0" aria-label="Date" aria-selected="false" role='option'>Date</li>
                         <li id="filtre-titre" class="type" tabindex="0" aria-selected="false" aria-label="Titre" role='option'>Titre</li>
-                    </ul>
+                    </ul><img class="arrow-up-close" tabindex="0" src="./assets/icons/chevron-up-solid.svg"  alt="fermer le menu" />
                 </div>
             </div > `;
 
@@ -98,9 +98,12 @@ function dropDown(portfolioMedia, photographer) {
     let arrowOpen = document.getElementsByClassName('type-btn');
     let arrowClose = document.getElementsByClassName('arrow-up-close');
     let hiddenSort = document.getElementsByClassName('hidden-type');
+    let arrowCloseup = document.querySelector('.arrow-up-close');
 
     if (arrowOpen) {
+
         arrowOpen[0].addEventListener('click', () => {
+            arrowCloseup.style.display = "block";
             hiddenSort[0].style.display = 'block';
         });
         this.updateMedia(portfolioMedia, photographer);
@@ -109,9 +112,22 @@ function dropDown(portfolioMedia, photographer) {
     if (arrowClose) {
         arrowClose[0].addEventListener('click', () => {
             hiddenSort[0].style.display = "none";
-            console.log("ok");
+            arrowCloseup.style.display = "none";
+
+        });
+        arrowClose[0].addEventListener('keydown', (e) => {
+            if (e.key === "Escape") {
+                hiddenSort[0].style.display = "none";
+                arrowCloseup.style.display = "none";
+            }
         });
     }
+
+    // if (arrowClose) {
+    //     arrowClose[0].addEventListener('keydown', () => {
+    //         hiddenSort[0].style.display = "none";
+    //     });
+    // }
 }
 
 
@@ -126,6 +142,7 @@ function updateMedia(portfolioMedia, photographer) {
     let btnSelection = document.querySelector('.btn-click');
     let hiddentype = document.getElementsByClassName('hidden-type');
     let typeBtn = Array.from(document.getElementsByClassName('type'));
+    let arrowCloseup = document.querySelector('.arrow-up-close');
 
     /**
      * @param {MouseEvent} typebtn click filtering selection
@@ -136,17 +153,21 @@ function updateMedia(portfolioMedia, photographer) {
             items.sort((a, b) => b.likes - a.likes);
             displayMedia(items, photographer);
             hiddentype[0].style.display = "none";
+            arrowCloseup.style.display = "none";
+
         } else if (index == 1) {
             btnSelection.innerHTML = `Dates`;
             items.sort((a, b) => b.date.localeCompare(a.date));
             displayMedia(items, photographer);
             hiddentype[0].style.display = "none";
+            arrowCloseup.style.display = "none";
 
         } else if (index == 2) {
             btnSelection.innerHTML = `Titre`;
             items.sort((a, b) => a.title.localeCompare(b.title));
             displayMedia(items, photographer);
             hiddentype[0].style.display = "none";
+            arrowCloseup.style.display = "none";
         }
 
     }));

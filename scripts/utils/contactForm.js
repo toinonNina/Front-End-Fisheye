@@ -4,7 +4,6 @@ function getPhotographerForm(photographer) {
     const namePhotographer = document.querySelector('.name-photographer');
     namePhotographer.innerHTML = `Contactez moi  ${photographer.name}`;
     namePhotographer.setAttribute("aria-label", `${photographer.name}`);
-    const formControl = document.getElementById("form-container");
     const contactBtn = document.querySelector(".contact_button");
     const submitForm = document.getElementById("submitform");
     const closeValid = document.getElementById("close-valid-message");
@@ -35,11 +34,22 @@ function getPhotographerForm(photographer) {
         e.preventDefault();
         closeModal();
     });
+    closebtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            closeModal();
+            closeModalValid();
+        }
+    });
 
     window.addEventListener("keydown", (e) => {
+        const helpfocus = document.querySelector(".name-photographer");
+
         if (e.key === "Escape") {
             closeModal();
             closeModalValid();
+        }
+        if (e.key === 'Tab') {
+            if (document.activeElement === closebtn) helpfocus.focus();
         }
     });
     contactBtn.addEventListener("keydown", (e) => {
@@ -85,7 +95,7 @@ function getPhotographerForm(photographer) {
         // control LastName
         if (!regExControlname.test(lastname.value) || lastname.value == "") {
             alertLastName.innerHTML = "le champs Nom ne doit contenir que des lettres (au moins 2)";
-            lastname.style.border = "2px solid red";
+            lastname.style.border = "4px solid red";
             alertLastName.className = 'error-current';
             lastname.className = "current-error";
             return false;
@@ -97,7 +107,7 @@ function getPhotographerForm(photographer) {
         const regExControlEmail = /^[\w-.]+@([\w-]+.)+[\w-]{2,}$/g;
         if (!regExControlEmail.test(email.value) || email.value == "") {
             alertEmail.innerHTML = "veuillez entrer une adresse mail valide";
-            email.style.border = "2px solid red";
+            email.style.border = "4px solid red";
             alertEmail.className = 'error-current';
             email.className = "current-error";
             return false;
@@ -108,8 +118,8 @@ function getPhotographerForm(photographer) {
 
         // control message Content
         if (messageContent.value.trim() == "") {
-            alertMessage.innerHTML = "Ne doit contenir que des lettres (au moins 2)";
-            messageContent.style.border = "2px solid red";
+            alertMessage.innerHTML = "Le champs message ne doit pas etre vide(2 caractère minimum)";
+            messageContent.style.border = "4px solid red";
             alertMessage.className = 'error-current';
             messageContent.className = "current-error";
             return false;
@@ -159,8 +169,9 @@ function getPhotographerForm(photographer) {
     function displayModal() {
         const modal = document.getElementById("contact-modal");
         const containermodal = document.querySelector('#form-container');
+        const helpfocus = document.querySelector(".name-photographer");
         modal.style.display = "block";
-        containermodal.focus();
+        helpfocus.focus();
     }
 
 
