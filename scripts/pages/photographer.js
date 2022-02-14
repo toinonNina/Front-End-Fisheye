@@ -54,9 +54,9 @@ async function displayPhotographerContact(photographer) {
     <p class="city-Contact" >${city}, ${country}</p>
     <p class="tagline-Contact">${tagline}</p>
     </div></div>
-    <button class="contact_button" >Contactez-moi</button>
-     <img src=${picture} class="profil-picture" alt="${description}">
+    <button class="contact_button" >Contactez-moi</button> <img src=${picture} class="profil-picture" alt="${description}">
     `;
+
     getPhotographerForm(photographer);
 
 }
@@ -122,12 +122,6 @@ function dropDown(portfolioMedia, photographer) {
             }
         });
     }
-
-    // if (arrowClose) {
-    //     arrowClose[0].addEventListener('keydown', () => {
-    //         hiddenSort[0].style.display = "none";
-    //     });
-    // }
 }
 
 
