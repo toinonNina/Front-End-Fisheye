@@ -176,18 +176,21 @@ function updateMedia(portfolioMedia, photographer) {
             items.sort((a, b) => b.likes - a.likes);
             displayMedia(items, photographer);
             hiddentype[0].style.display = "none";
+            arrowCloseup.style.display = "none";
 
         } else if (index == 1 && e.key === 'Enter') {
             btnSelection.innerHTML = `Dates`;
             items.sort((a, b) => b.date.localeCompare(a.date));
             displayMedia(items, photographer);
             hiddentype[0].style.display = "none";
+            arrowCloseup.style.display = "none";
 
         } else if (index == 2 && e.key === 'Enter') {
             btnSelection.innerHTML = `Titre`;
             items.sort((a, b) => a.title.localeCompare(b.title));
             displayMedia(items, photographer);
             hiddentype[0].style.display = "none";
+            arrowCloseup.style.display = "none";
 
         }
 
