@@ -28,7 +28,12 @@ function getPhotographerForm(photographer) {
         e.preventDefault();
         closeModalValid();
     });
-
+    closeValid.addEventListener('keydown', (e) => {
+        const helpfocus2 = document.querySelector(".content-valid");
+        if (e.key === 'Tab') {
+            if (document.activeElement === closeValid) helpfocus2.focus();
+        }
+    });
 
     closebtn.addEventListener('click', (e) => {
         e.preventDefault();
@@ -42,15 +47,17 @@ function getPhotographerForm(photographer) {
     });
 
     window.addEventListener("keydown", (e) => {
-        const helpfocus = document.querySelector(".name-photographer");
+        const helpfocus1 = document.querySelector(".name-photographer");
+
 
         if (e.key === "Escape") {
             closeModal();
             closeModalValid();
         }
         if (e.key === 'Tab') {
-            if (document.activeElement === closebtn) helpfocus.focus();
+            if (document.activeElement === closebtn) helpfocus1.focus();
         }
+
     });
     contactBtn.addEventListener("keydown", (e) => {
         if (e.key === "Enter") {
@@ -150,7 +157,6 @@ function getPhotographerForm(photographer) {
 
         } else {
             error();
-
             return false;
         }
     });
@@ -168,7 +174,6 @@ function getPhotographerForm(photographer) {
 
     function displayModal() {
         const modal = document.getElementById("contact-modal");
-        const containermodal = document.querySelector('#form-container');
         const helpfocus = document.querySelector(".name-photographer");
         modal.style.display = "block";
         helpfocus.focus();
@@ -186,10 +191,12 @@ function getPhotographerForm(photographer) {
         const portfoliosection = document.querySelector('.portfolio-section');
         portfoliosection.focus();
     }
-
+    /**
+     * error function display and focus
+     */
     function error() {
         const errorCurrent = document.querySelector(".error-current");
-        errorCurrent.setAttribute("tabindex", "0");
+        errorCurrent.setAttribute("tabindex", "1");
         const currentError = document.querySelector(".current-error");
         currentError.focus();
     }
