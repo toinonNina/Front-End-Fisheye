@@ -190,6 +190,7 @@ function getPhotographerForm(photographer) {
         launchValidation.style.display = "none";
         const portfoliosection = document.querySelector('.portfolio-section');
         portfoliosection.focus();
+        // console.clear();
     }
     /**
      * error function display and focus
@@ -197,7 +198,6 @@ function getPhotographerForm(photographer) {
     function error() {
         const errorCurrent = document.querySelector(".error-current");
         errorCurrent.setAttribute("tabindex", "1");
-        const currentError = document.querySelector(".current-error");
-        currentError.focus();
+        errorCurrent.focus();
     }
 }

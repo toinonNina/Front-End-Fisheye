@@ -13,10 +13,10 @@ function photographerFactory(data) {
         <h2 class="photographer-profil" aria-label="${name}">${name}
         </h2>
         </a>
-        <div class="photographer-info">
-        <h3 class="city" tabindex="0">${city}, ${country}</h3>
-        <p class ="tagline" tabindex="0">${tagline}</p>
-        <p class="price" tabindex="0">${price}€/jour</p>
+        <div class="photographer-info" tabindex="0">
+        <h3 class="city" >${city}, ${country}</h3>
+        <p class ="tagline" >${tagline}</p>
+        <p class="price" >${price}€/jour</p>
         </div>`;
         return (article);
     }
