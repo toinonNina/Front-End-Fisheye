@@ -211,7 +211,7 @@
     color: #fff;
     left: 9.5rem;
     position: relative;
-    top: -4px;
+    top: 0;
     left: 172px;
     z-index: 10;
     width: 20px;
@@ -236,12 +236,11 @@
 .hidden-type li {
     background: #901c1c;
     color: #fff;
-    font-size: 1.2em;
     font-weight: 500;
     padding: 1rem;
     list-style: none;
     margin: 0 10px;
-    width: 70%;
+    width: 57%;
 }
 
 .type:focus {
@@ -273,13 +272,13 @@
     border-radius: 5px;
     color: #fff;
     display: none;
-    left: 176px;
+    left: 174px;
     padding: 0;
     position: absolute;
-    width: 210px;
+    width: 192px;
     z-index: 5;
     background: #901c1c;
-    bottom: 261px;
+    bottom: 258px;
     font-size: 1.2rem;
     font-weight: 500;
 }

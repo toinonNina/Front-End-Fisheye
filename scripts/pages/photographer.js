@@ -300,8 +300,9 @@ async function init() {
     displayPhotographerContact(photographer);
     displayNavList(portfolio, photographerId);
     dropDown(portfolio, photographer);
-    updateMedia(portfolio, photographer);
     displayMedia(portfolio, photographer);
+    updateMedia(portfolio, photographer);
+
 
 }
 
